@@ -556,6 +556,19 @@ void test_values()
     struct cmt *cmt;
 
     status = cmt_decode_prometheus_create(&cmt,
+    "# HELP kube_pod_status_scheduled_time Unix timestamp when pod moved into scheduled status\n"
+    "# TYPE kube_pod_status_scheduled_time gauge"
+    "kube_pod_status_scheduled_time{namespace=\"federate\",pod=\"prometheus-server-76c48547cb-5br8t\",uid=\"9ebbdcba-2bf0-4727-949c-da47e01db229\"} 1.65158492e+09\n"
+    "kube_pod_status_scheduled_time{namespace=\"federate\",pod=\"prometheus-pushgateway-777b9bdbf7-mts6k\",uid=\"5ac18b6b-f960-4996-a3c9-9af55e679bd6\"} 1.651584915e+09\n"
+    "kube_pod_status_scheduled_time{namespace=\"federate\",pod=\"prometheus-node-exporter-qhffn\",uid=\"e6379c5f-c7ed-46d2-85c6-eb2db3bc680c\"} 1.65159098e+09\n"
+    "kube_pod_status_scheduled_time{namespace=\"federate\",pod=\"prometheus-fluent-bit-5c4796c95b-wrfc8\",uid=\"9adb2e70-ad03-4b88-9fee-eebc5c2aac58\"} 1.651594313e+09\n"
+    "kube_pod_status_scheduled_time{namespace=\"federate\",pod=\"prometheus-kube-state-metrics-778ccc8677-lxdd2\",uid=\"7d7091f8-2b98-4d09-9579-00ba14405196\"} 1.651595548e+09\n"
+    "# HELP kube_pod_status_unschedulable Describes the unschedulable status for the pod.\n"
+    "# TYPE kube_pod_status_unschedulable gauge"
+    , 0, NULL);
+    TEST_CHECK(status == 0);
+
+    status = cmt_decode_prometheus_create(&cmt,
             "# HELP metric_name some docstring\n"
             "# TYPE metric_name gauge\n"
             "metric_name {key=\"simple integer\"} 54\n"
